@@ -12,10 +12,6 @@ import java.util.Optional;
 
 public abstract class CrudService<T extends DbEntity> {
     JpaRepository<T, Long> repository;
-    String pages;
-    String sizes;
-    String sorts;
-    List list;
     public CrudService(JpaRepository<T, Long> repository) {
         this.repository = repository;
     }

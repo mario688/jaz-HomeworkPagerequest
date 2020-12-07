@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.edu.pjwstk.jazapi.service.CrudService;
 import pl.edu.pjwstk.jazapi.service.DbEntity;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -31,6 +33,13 @@ public abstract class CrudController<T extends DbEntity> {
             List<Map<String, Object>> payload = all.stream()
                     .map(obj -> transformToDTO().apply(obj))
                     .collect(Collectors.toList());
+            //wyswietlanie informacji o stornie
+            var list = new HashMap<String, Object>();
+            list.put("Page size: ", size);
+            list.put("Page number: ", page);
+            list.put("Sort method: ", sort);
+
+            payload.add(list);
 
             return new ResponseEntity<>(payload, HttpStatus.OK);
         } catch (Exception e) {
